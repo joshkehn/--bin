@@ -1,0 +1,2 @@
+#!/bin/zsh
+while true; do echo -n `date ` ; curl -I joshuakehn.com 2>1 | grep X-Forward | awk '{print " "$2}'; sleep 1; done;

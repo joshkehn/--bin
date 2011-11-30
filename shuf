@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+awk 'BEGIN{srand() }
+{ lines[++d]=$0 }
+END{
+    while (1){
+    if (e==d) {break}
+        RANDOM = int(1 + rand() * d)
+        if ( RANDOM in lines  ){
+            print lines[RANDOM]
+            delete lines[RANDOM]
+            ++e
+        }
+    }
+}' $1;

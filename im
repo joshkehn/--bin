@@ -1,0 +1,20 @@
+today=`date +%Y%m%d`;
+path=/Users/josh/Dropbox/Documents/blog/main/linked;
+file="$path/$today";
+
+if [[ ! -e $file ]]; then
+    touch $file;
+fi
+
+if [[ $1 ]]; then
+    cat $file | grep "$1" > /dev/null;
+    if [[ $? == 0 ]]; then
+        echo "Link already exists.";
+    else
+        echo "$1" >> "$path/$today";
+    fi
+else
+    cat "$path/$today" | pbcopy;
+    num=`cat $file | wc -l`;
+    echo "Copied" $num "links to clipboard.";
+fi

@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+cat ~/Dropbox/phrases | grep $1
