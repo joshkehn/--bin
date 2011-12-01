@@ -6,15 +6,28 @@ if [[ ! -e $file ]]; then
     touch $file;
 fi
 
-if [[ $1 ]]; then
-    cat $file | grep "$1" > /dev/null;
+# Start figuring out what our options are
+if [[ $1 == '--copy' ]]; then
+    cat "$file" | pbcopy;
+    cat "$file" | awk '{print "<img src=\""$1"\" /><br />"}' > "${file}.html";
+    num=`cat $file | wc -l`;
+    echo "Copied" $num "links to the clipboard.";
+elif [[ $1 == '--paste' ]]; then
+    item=`pbpaste`;
+elif [[ $1 == '--file' ]]; then
+    echo $file;
+elif [[ $1 ]]; then
+    item=$1;
+else
+    echo "Force pasteboard copy with --paste";
+fi
+
+if [[ $item ]]; then
+    echo "Processing $item";
+    cat $file | grep "$item" > /dev/null;
     if [[ $? == 0 ]]; then
         echo "Link already exists.";
     else
-        echo "$1" >> "$path/$today";
+        echo "$item" >> "$path/$today";
     fi
-else
-    cat "$path/$today" | pbcopy;
-    num=`cat $file | wc -l`;
-    echo "Copied" $num "links to clipboard.";
 fi
