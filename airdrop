@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+# AirDrop file and put link in clipboard
+
+if [[ -z $2 ]]; then
+    interface='en1';
+else
+    interface=$2;
+fi
+
+output=`ifconfig $interface | grep inet\ | awk '{print "curl "$2":5050"}'`
+
+output="$output > $1";
+
+echo $output | pbcopy;
+cat $1 | nc -l 5050; 
