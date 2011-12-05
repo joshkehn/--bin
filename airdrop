@@ -8,7 +8,11 @@ else
     interface=$2;
 fi
 
-output=`ifconfig $interface | grep inet\ | awk '{print "curl "$2":5050"}'`
+if [[ $interface == "--public" ]]; then
+    output="curl `curl http://whatismyip.nodejitsu.com/index.txt 2>/dev/null`:5050"
+else
+    output=`ifconfig $interface | grep inet\ | awk '{print "curl "$2":5050"}'`
+fi
 
 output="$output > $1";
 
