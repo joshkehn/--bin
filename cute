@@ -1,0 +1,21 @@
+file=/Users/josh/Dropbox/.cute;
+
+if [[ ! -e $file ]]; then
+    touch $file;
+fi
+
+if [[ $1 ]]; then
+    item=$1;
+else
+    item=`pbpaste`;
+fi
+
+if [[ $item ]]; then
+    cat $file | grep "$item" > /dev/null;
+    if [[ $? == 0 ]]; then
+        echo "Link already exists.";
+        echo "Link already existed" | pbcopy;
+    else
+        echo "$item" >> "$file";
+    fi
+fi
