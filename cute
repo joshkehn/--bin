@@ -15,6 +15,8 @@ if [[ $item ]]; then
     if [[ $? == 0 ]]; then
         echo "Link already exists.";
         echo "Link already existed" | pbcopy;
+    elif [[ $item == "Link already existed" ]]; then
+        echo "Not appending non-link.";
     else
         echo "$item" >> "$file";
     fi
