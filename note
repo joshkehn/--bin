@@ -1,0 +1,12 @@
+file=~/.notes;
+today=`date +%Y%m%d`;
+note=$1;
+
+if [[ $note ]]; then
+    echo $today >> $file;
+    echo $note >> $file;
+    echo >> $file;
+    echo "Saved 1 note to $file.";
+else
+    tail $file;
+fi
