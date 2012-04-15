@@ -1,5 +1,5 @@
 file=~/.notes;
-today=`date +%Y%m%d`;
+today=`date +%Y-%m-%d`;
 note=$1;
 
 if [[ $note ]]; then
