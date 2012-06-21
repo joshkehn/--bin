@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Only for OS X
+defaults write com.apple.QuartzDebug QDVisibleClientIdentifiers -array-add -string QDWindowInfoClient
+
+echo "Now open Quartz Debugger and find that fucking little thing.";
