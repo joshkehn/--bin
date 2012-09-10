@@ -1,1 +1,5 @@
-/Users/josh/Dropbox/usr/terminal-notifier.app/Contents/MacOS/terminal-notifier
+#!/bin/sh
+
+COMMAND=~/Dropbox/usr/terminal-notifier.app/Contents/MacOS/terminal-notifier;
+
+exec $COMMAND "$@";
