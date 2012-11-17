@@ -1,9 +1,27 @@
 #!/usr/bin/env python
-import datetime
+import datetime, sys
+SECONDS_IN_HOUR = 3600.0
+HOURS_IN_WEEK = 168.0
 now = datetime.datetime.now()
 then = now - datetime.timedelta(days=now.weekday())
 then = datetime.datetime(year=then.year, month=then.month, day=then.day, hour=0, minute=0, second=0)
 delta = now - then
-print "Hours passed: {0}".format(delta.total_seconds() // 3600)
-print "Hours left: {0}".format(168 - (delta.total_seconds() // 3600))
+passed = round(delta.total_seconds() / SECONDS_IN_HOUR, 2)
+left = round(HOURS_IN_WEEK - passed, 2)
+percent = round(passed / HOURS_IN_WEEK * 100, 2)
 
+width = 50
+filled = round(width * percent / 100, 0)
+sys.stdout.write("[")
+for i in range(0, width):
+    if i < filled - 1:
+        sys.stdout.write("=")
+    elif i == filled - 1:
+        sys.stdout.write(">")
+    else:
+        sys.stdout.write(".")
+print "]"
+
+print "Hours passed: {0}".format(passed)
+print "Hours left: {0}".format(left)
+print "Week is {0}% gone".format(percent)
