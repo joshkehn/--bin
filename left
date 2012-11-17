@@ -12,15 +12,16 @@ percent = round(passed / HOURS_IN_WEEK * 100, 2)
 
 width = 50
 filled = round(width * percent / 100, 0)
-sys.stdout.write("[")
+progress = ["["]
 for i in range(0, width):
     if i < filled - 1:
-        sys.stdout.write("=")
+        progress.append("=")
     elif i == filled - 1:
-        sys.stdout.write(">")
+        progress.append(">")
     else:
-        sys.stdout.write(".")
-print "]"
+        progress.append(".")
+progress.append("]")
+print "".join(progress)
 
 print "Hours passed: {0}".format(passed)
 print "Hours left: {0}".format(left)
