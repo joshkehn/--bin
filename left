@@ -14,7 +14,7 @@ width = 50
 filled = round(width * percent / 100, 0)
 progress = ["["]
 for i in range(0, width):
-    if i < filled - 1:
+    if i < filled - 1 or i == filled - 1 == width - 1:
         progress.append("=")
     elif i == filled - 1:
         progress.append(">")
