@@ -6,9 +6,9 @@ now = datetime.datetime.now()
 then = now - datetime.timedelta(days=now.weekday())
 then = datetime.datetime(year=then.year, month=then.month, day=then.day, hour=0, minute=0, second=0)
 delta = now - then
-passed = round(delta.total_seconds() / SECONDS_IN_HOUR, 2)
-left = round(HOURS_IN_WEEK - passed, 2)
-percent = round(passed / HOURS_IN_WEEK * 100, 2)
+passed = round(delta.total_seconds() / SECONDS_IN_HOUR, 4)
+left = round(HOURS_IN_WEEK - passed, 4)
+percent = round(passed / HOURS_IN_WEEK * 100, 4)
 
 width = 50
 filled = round(width * percent / 100, 0)

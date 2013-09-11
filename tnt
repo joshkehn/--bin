@@ -1,1 +1,63 @@
-/Users/josh/Dropbox/JAKT/PetProjects/tnt/tnt
+#!/usr/bin/env python
+
+import sys, os, json, timer, argparse
+import dotfile, commands
+
+DOTFILE = os.path.expanduser("~/.tnt")
+NEW_CLIENT = { "tasks" : [], "projects" : [], "users" : [] }
+
+def load_file (path):
+    path = os.path.expanduser(path)
+    try:
+        f = open(path, "r")
+        contents = f.read()
+    except Exception:
+        return None
+    f.close()
+    return contents
+
+def write_file (path, blob):
+    path = os.path.expanduser(path)
+    try:
+        f = open(path, "w")
+        f.write(blob)
+        f.close()
+        return True
+    except IOError:
+        return False
+
+def load_dotfile (path=DOTFILE):
+    contents = load_file(path)
+    try:
+        return json.loads(contents)
+    except ValueError:
+        write_file(path, json.dumps({}))
+        return {}
+
+def run_command (command, args):
+    if command in dir(commands):
+        return getattr(commands, command).run(args)
+    elif command is not None:
+        print "Err: Command %s not recognized" % (command)
+        print
+    print "tnt - Time tracking"
+    print "Commands:"
+    for command in [c for c in sorted(dir(commands)) if not c.startswith("_")]:
+        print "  - %s" % (command.replace("_", "-"))
+
+def main ():
+
+    # Load dotfile
+    df = dotfile.load()
+
+    # Grab the command argument
+    command = None
+
+    if len(sys.argv) >= 2:
+        command = sys.argv[1].replace("-", "_")
+
+    # Process all argparse options for command
+    run_command(command, sys.argv[2:])
+
+if __name__ == "__main__":
+    main()
